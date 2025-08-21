@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useSaveStore } from '@/composables/useSaveStore.js'
 
 // 存档
@@ -49,22 +49,39 @@ const levelMap = {
 
 // 状态管理
 const isDialogOpen = ref(false)
-const isLearned = ref(false)
-const currentLevel = ref(null)
 const selectedLevel = ref(0)
+
+// 从存档中获取当前的技能数据
+const currentSkillData = computed(() => {
+  return saveStore.currentSave.value?.skillsData?.find((s) => s.id === props.skill.id)
+})
+
+// 是否已学习
+const isLearned = computed(() => {
+  return !!currentSkillData.value // 2 次 !! 转成 boolean
+})
+
+// 当前领悟等级
+const currentLevel = computed(() => {
+  return currentSkillData.value?.insightLevel ?? null
+})
 
 // 计算属性：获取当前选中等级的信息
 const selectedLevelInfo = computed(() => {
   return props.skill.insight.find((item) => item.level === selectedLevel.value)
 })
 
-// 打开对话框
-const openDialog = () => {
+// 当技能数据变化时，更新选择等级
+watchEffect(() => {
   if (isLearned.value && currentLevel.value !== null) {
     selectedLevel.value = currentLevel.value
   } else {
     selectedLevel.value = 0
   }
+})
+
+// 打开对话框
+const openDialog = () => {
   isDialogOpen.value = true
 }
 
@@ -75,19 +92,23 @@ const learnSkill = () => {
     insightLevel: selectedLevel.value,
   }
 
-  // 更新存档中的数据
-  saveStore.updateSkill(saveStore.currentSaveId.value, skillData)
-
-  isLearned.value = true
-  currentLevel.value = selectedLevel.value
+  // 先关弹窗
   isDialogOpen.value = false
+
+  // 更新存档中的数据，延迟，确保弹窗已经关闭了
+  setTimeout(() => {
+    saveStore.updateSkill(saveStore.currentSaveId.value, skillData)
+  }, 100)
 }
 
-// 取消学习（删除已学习状态）
+// 取消学习（删除已学习状态），延迟，确保弹窗已经关闭了
 const unlearnSkill = () => {
-  isLearned.value = false
-  currentLevel.value = null
+  // 先关弹窗
   isDialogOpen.value = false
+
+  setTimeout(() => {
+    saveStore.deleteSkill(saveStore.currentSaveId.value, props.skill.id)
+  }, 100)
 }
 
 // 获取当前等级信息

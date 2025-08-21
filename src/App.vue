@@ -43,7 +43,7 @@ onMounted(() => {
     <!-- 类别筛选 -->
     <div class="flex justify-center mb-6">
       <Select v-model="selectedCategory">
-        <SelectTrigger class="w-full max-w-xs">
+        <SelectTrigger class="w-full w-full sm:w-64 md:w-80">
           <SelectValue placeholder="选择技能类别" />
         </SelectTrigger>
         <SelectContent>

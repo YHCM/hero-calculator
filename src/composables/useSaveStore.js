@@ -2,7 +2,7 @@ import { useStorage } from '@vueuse/core'
 import { computed, readonly } from 'vue'
 
 // 生成初始存档 ID
-const initialSaveId = Data.now().toString()
+const initialSaveId = Date.now().toString()
 
 // 默认存档数据
 const defaultSaveData = {
@@ -37,7 +37,7 @@ const currentSave = computed(() => saves.value[currentSaveId.value])
  */
 function validateSave(saveId) {
   // 验证存档是否存在
-  if (!saveId.value[saveId]) {
+  if (!saves.value[saveId]) {
     console.warn(`存档 ID ${saveId} 不存在`)
     return false
   }
@@ -326,7 +326,7 @@ export function useSaveStore() {
  *       id: number,    // 武学 ID
  *       currentLevel: number,    // 当前武学等级
  *       targetedLevel: number,   // 目标等级
- *       insightLevel: number,  // 领悟等级
+ *       insightLevel: number,    // 领悟等级
  *     },
  *   ]
  * }
