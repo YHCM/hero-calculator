@@ -140,7 +140,7 @@ const getCurrentLevelName = () => {
 
   <!-- 学习等级选择对话框 -->
   <Dialog v-model:open="isDialogOpen">
-    <DialogContent class="max-w-[95vw] rounded-lg sm:max-w-md">
+    <DialogContent class="max-w-[80vw] sm:max-w-[280px] md:max-w-md rounded-lg mx-auto my-4">
       <DialogHeader>
         <DialogTitle class="text-lg">{{ skill.name }}</DialogTitle>
         <DialogDescription class="text-sm">

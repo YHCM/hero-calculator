@@ -1,62 +1,53 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import SkillCard from '@/components/custom/SkillCard.vue'
-import { Button } from '@/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-
-// 导入技能数据
-import skillsData from '@/assets/data/skills.json'
-
-// 状态管理
-const allSkills = ref(skillsData)
-const selectedCategory = ref('')
-
-// 计算属性：根据选中的类别过滤技能
-const filteredSkills = computed(() => {
-  return allSkills.value.filter((skill) => skill.category === selectedCategory.value)
-})
-
-// 获取所有唯一的技能类别
-const categories = computed(() => {
-  const cats = new Set(allSkills.value.map((skill) => skill.category))
-  return [...cats]
-})
-
-// 默认选择第一个类别：拳脚
-onMounted(() => {
-  if (categories.value.length > 0) {
-    selectedCategory.value = categories.value[0]
-  }
-})
+import SkillsView from '@/views/SkillsView.vue'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 </script>
 
 <template>
-  <div class="max-w-6xl mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4 text-center">技能列表</h1>
+  <div class="max-w-6xl mx-auto px-2 py-4">
+    <Tabs default-value="skills" class="w-full">
+      <!-- 标签切换列表 -->
+      <TabsList
+        class="w-full max-w-md mx-auto flex bg-neutral-100 dark:bg-neutral-800 p-1 rounded-lg"
+      >
+        <TabsTrigger
+          value="meridians"
+          class="flex-1 py-2 px-4 rounded-md data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-700 data-[state=active]:shadow-sm transition-all duration-200"
+        >
+          经脉
+        </TabsTrigger>
+        <TabsTrigger
+          value="qi"
+          class="flex-1 py-2 px-4 rounded-md data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-700 data-[state=active]:shadow-sm transition-all duration-200"
+        >
+          真元
+        </TabsTrigger>
+        <TabsTrigger
+          value="skills"
+          class="flex-1 py-2 px-4 rounded-md data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-700 data-[state=active]:shadow-sm transition-all duration-200"
+        >
+          武学
+        </TabsTrigger>
+      </TabsList>
 
-    <!-- 类别筛选 -->
-    <div class="flex justify-center mb-6">
-      <Select v-model="selectedCategory">
-        <SelectTrigger class="w-full w-full sm:w-64 md:w-80">
-          <SelectValue placeholder="选择技能类别" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem v-for="cat in categories" :key="cat" :value="cat">
-            {{ cat }}
-          </SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-
-    <!-- 技能卡片网格 -->
-    <div class="grid grid-cols-3 gap-3">
-      <SkillCard v-for="skill in filteredSkills" :key="skill.id" :skill="skill" />
-    </div>
+      <!-- 标签内容区域 -->
+      <TabsContent value="meridians" class="mt-4 px-1">
+        <div
+          class="min-h-[300px] flex items-center justify-center text-neutral-500 dark:text-neutral-400"
+        >
+          筋脉内容区域
+        </div>
+      </TabsContent>
+      <TabsContent value="qi" class="mt-4 px-1">
+        <div
+          class="min-h-[300px] flex items-center justify-center text-neutral-500 dark:text-neutral-400"
+        >
+          真元内容区域
+        </div>
+      </TabsContent>
+      <TabsContent value="skills" class="mt-4 px-1">
+        <SkillsView />
+      </TabsContent>
+    </Tabs>
   </div>
 </template>
