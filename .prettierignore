@@ -1,0 +1,8 @@
+# 依赖
+node_modules/
+
+# 构建
+dist/
+
+# shadcn 组件
+src/components/ui/
