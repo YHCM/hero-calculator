@@ -99,6 +99,9 @@ const learnSkill = () => {
   const skillData = {
     id: props.skill.id,
     insightLevel: selectedLevel.value,
+    // 设置默认等级
+    currentLevel: currentSkillData.value ? currentSkillData.value.currentLevel : 1,
+    targetedLevel: currentSkillData.value ? currentSkillData.value.targetedLevel : 299,
   }
 
   // 先关弹窗
