@@ -246,14 +246,16 @@ function deleteSkill(saveId, skillId) {
   // 找到技能在技能数组的索引
   const skillIndex = saves.value[saveId].skillsData.findIndex((s) => s.id === skillId)
 
-  if (skillId > -1) {
+  if (skillIndex > -1) {
     // 如果找到了技能，就把它删掉
     saves.value[saveId].skillsData.splice(skillIndex, 1)
+    // console.log(`技能 ID ${skillId} 删除成功`)
+    // console.log(saves.value)
     return true
   }
 
   // 如果没有找到，返回 false
-  console.warn(`技能 ID ${skillId} 不存在于存档 ${saveId} 中`)
+  // console.log(`技能 ID ${skillId} 不存在于存档 ${saveId} 中`)
   return false
 }
 

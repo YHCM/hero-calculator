@@ -85,6 +85,15 @@ const openDialog = () => {
   isDialogOpen.value = true
 }
 
+// 删除冲突技能
+const removeConflictingSkills = () => {
+  if (props.skill.conflict && props.skill.conflict.length > 0) {
+    props.skill.conflict.forEach((skillId) => {
+      saveStore.deleteSkill(saveStore.currentSaveId.value, skillId)
+    })
+  }
+}
+
 // 学习或更新等级
 const learnSkill = () => {
   const skillData = {
@@ -97,6 +106,8 @@ const learnSkill = () => {
 
   // 更新存档中的数据，延迟，确保弹窗已经关闭了
   setTimeout(() => {
+    // 同时删除冲突技能
+    removeConflictingSkills()
     saveStore.updateSkill(saveStore.currentSaveId.value, skillData)
   }, 100)
 }

@@ -37,9 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-6xl mx-auto px-4 py-6">
-    <!-- <h1 class="text-2xl font-bold mb-4 text-center">技能列表</h1> -->
-
+  <div class="max-w-6xl mx-auto">
     <!-- 类别筛选 -->
     <div class="flex justify-center mb-6">
       <Select v-model="selectedCategory">
