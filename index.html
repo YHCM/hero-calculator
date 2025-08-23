@@ -4,10 +4,32 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue + TS</title>
+    <title>暴走计算器</title>
   </head>
-  <body>
-    <div id="app"></div>
+  <body class="bg-gray-100 min-h-screen flex justify-center">
+    <div id="app" class="w-full max-w-md min-h-screen bg-white overflow-hidden 
+      [padding-top:constant(safe-area-inset-top)] 
+      [padding-top:env(safe-area-inset-top)] 
+      [padding-bottom:constant(safe-area-inset-bottom)] 
+      [padding-bottom:env(safe-area-inset-bottom)]">
+    </div>
+
+    <!-- 响应式调整 -->
+    <style type="text/tailwindcss">
+      @layer utilities {
+        @screen max-md {
+          #app {
+            max-width: 100%;
+            border-radius: 0;
+            box-shadow: none;
+          }
+          body {
+            background-color: white;
+          }
+        }
+      }
+    </style>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
