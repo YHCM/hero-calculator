@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-6xl mx-auto">
+  <div class="w-full mx-auto">
     <!-- 类别筛选 -->
     <div class="flex justify-center mb-6">
       <Select v-model="selectedCategory">

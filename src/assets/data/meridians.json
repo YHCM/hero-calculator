@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ren",
+    "name": "任脉",
+    "levels": [
+      {
+        "level": 1,
+        "properties": [
+          { "type": "hp", "cost": 120, "value": 200 },
+          { "type": "atk", "cost": 240, "value": 10 },
+          { "type": "acc", "cost": 480, "value": 10 },
+          { "type": "3c1", "cost": 840, "value": 5 },
+          { "type": "2c1", "cost": 1440, "value": 10 },
+          { "type": "coeff", "cost": 2280, "value": 1 }
+        ]
+      }
+    ],
+    "choices": {
+      "3c1": ["str", "agi", "ins"],
+      "2c1": ["pen", "poi"]
+    }
+  }
+]
